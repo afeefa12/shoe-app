@@ -12,7 +12,7 @@ const Pictures = () => {
                             <img 
                                 alt="products" 
                                 className="w-full object-cover h-full object-center block" 
-                                // src="ttps://n-img0.junaroad.com/uiproducts/21274465/zoom_0-1716399845.jpg" 
+                                src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freepik.com%2Ffree-photos-vectors%2Fsports-shoes%2F51&psig=AOvVaw2sm7gO5b6NcPJLAwBsu_5_&ust=1741756743762000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCIjhjdajgYwDFQAAAAAdAAAAABAI" 
                                 
                             />
                         </div>
@@ -20,14 +20,14 @@ const Pictures = () => {
                             <img 
                                 alt="products" 
                                 className="w-full object-cover h-full object-center block " 
-                                // src="https://img.joomcdn.net/cf58b57ac7a3828dea24a08efbce1d4753a44b3a_original.jpeg" 
+                                src="https://img.joomcdn.net/cf58b57ac7a3828dea24a08efbce1d4753a44b3a_original.jpeg" 
                             />
                         </div>
                         <div className="md:p-2 p-1 w-full">
                             <img 
                                 alt="products" 
                                 className="w-full h-full object-cover object-center block" 
-                                // src="https://m.media-amazon.com/images/I/71zp+p4QxmL._AC_UY900_.jpg" 
+                                src="https://m.media-amazon.com/images/I/71zp+p4QxmL._AC_UY900_.jpg" 
                             />
                         </div>
                     </div>
@@ -36,14 +36,14 @@ const Pictures = () => {
                             <img 
                                 alt="products" 
                                 className="w-full h-full object-cover object-center block" 
-                                // src="https://ae01.alicdn.com/kf/S0884ef1f83c6485aa7c7dab9ceb00de7N.jpg_640x640q90.jpg?width=790&height=950&hash=1740" 
+                                src="https://ae01.alicdn.com/kf/S0884ef1f83c6485aa7c7dab9ceb00de7N.jpg_640x640q90.jpg?width=790&height=950&hash=1740" 
                             />
                         </div>
                         <div className="md:p-2 p-1 w-1/2">
                             <img 
                                 alt="products" 
                                 className="w-full object-cover h-full object-center block" 
-                                // src="https://ae01.alicdn.com/kf/S5ce00436fb51437e9ff203e0508cdd29A.jpg_640x640q90.jpg" 
+                                src="https://ae01.alicdn.com/kf/S5ce00436fb51437e9ff203e0508cdd29A.jpg_640x640q90.jpg" 
                             />
                         </div>
                         <div className="md:p-2 p-1 w-1/2">

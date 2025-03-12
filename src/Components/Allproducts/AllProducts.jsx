@@ -1,83 +1,164 @@
 
+
+// import axios from "axios";
+// import React, { useEffect, useState } from "react";
+// import { Link } from "react-router-dom";
+
+// const ProductList = () => {
+//   const [products, setProducts] = useState([]);
+//   const userId = localStorage.getItem("userId");
+
+//   useEffect(() => {
+//     const fetchProducts = async () => {
+//       try {
+//         const res = await axios.get("http://localhost:4000/Products");
+//         setProducts(res.data);
+//       } catch (error) {
+//         console.error("Error fetching products:", error);
+//       }
+//     };
+//     fetchProducts();
+//   }, []);
+
+//   const addToCart = async (product) => {
+//     if (!userId) {
+//       alert("Please log in to add items to the cart.");
+//       return;
+//     }
+
+//     try {
+//       const userRes = await axios.get(`http://localhost:4000/users${userId}`);
+//       let user = userRes.data;
+
+//       if (!user || !user.cart) {
+//         console.error("User data is missing or cart is undefined.");
+//         return;
+//       }
+
+//       const existingItem = user.cart.find((item) => item.id === product.id);
+//       if (existingItem) {
+//         alert(`${product.name} is already in the cart!`);
+//         return;
+//       }
+
+//       const updatedCart = [...user.cart, product];
+//       await axios.patch(`http://localhost:4000/users/${userId}`, { cart: updatedCart });
+
+//       alert(`${product.name} added to cart!`);
+//     } catch (error) {
+//       console.error("Error adding to cart:", error);
+//     }
+//   };
+
+//   return (
+//     <div className="min-h-screen bg-gray-100 p-6">
+//       <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">Shoes</h1>
+
+//       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+//         {products.map((product) => (
+//           <div key={product.id} className="bg-white shadow-lg rounded-lg p-4 flex flex-col items-center">
+//             <Link to={`/product/${product.id}`} className="w-full">
+//               <img src={product.images} alt={product.name} className="w-full h-48 object-cover rounded-lg mb-4" />
+//               <h2 className="text-xl font-semibold text-gray-800 text-center">{product.name}</h2>
+//             </Link>
+
+//             <p className="text-gray-600 text-sm mb-2">₹{product.price}</p>
+//             <button
+//               onClick={() => navigate('/Cart')}
+//               className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+//               Add to Cart
+//             </button>
+//           </div>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default ProductList;
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { useAuth } from "../../components/AuthContext/AuthContext"
+import { Link, useNavigate } from "react-router-dom";
 
-const AllProducts = ({ AddToCart }) => {
-  // State to store the list of products
-  const [allProducts, setAllProducts] = useState([]);
+const ProductList = () => {
+  const [products, setProducts] = useState([]);
+  const userId = localStorage.getItem("userId");
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch products from API 
-    const getAllProducts = async () => {
+    const fetchProducts = async () => {
       try {
-        const response = await axios.get("http://localhost:4000/products");
-        setAllProducts(response.data); 
+        const res = await axios.get("http://localhost:4000/Products");
+        setProducts(res.data);
       } catch (error) {
         console.error("Error fetching products:", error);
       }
     };
-
-    getAllProducts();
+    fetchProducts();
   }, []);
 
-  const { isLoggedIn } = useAuth(); 
+  const addToCart = async (product) => {
+    if (!userId) {
+      alert("Please log in to add items to the cart.");
+      navigate("/login");
+      return;
+    }
+
+    try {
+      // Fetch user data
+      const userRes = await axios.get(`http://localhost:4000/users/${userId}`);
+      let user = userRes.data;
+
+      if (!user.cart) {
+        user.cart = []; // Initialize cart if not present
+      }
+
+      // Check if the item is already in the cart
+      const existingItem = user.cart.find((item) => item.id === product.id);
+      if (existingItem) {
+        alert(`${product.name} is already in the cart!`);
+        return;
+      }
+
+      // Add new product to cart
+      const updatedCart = [...user.cart, { ...product, quantity: 1 }];
+
+      // Update user's cart in the database
+      await axios.patch(`http://localhost:4000/users/${userId}`, { cart: updatedCart });
+
+      alert(`${product.name} added to cart!`);
+      
+      // Navigate to Cart page after adding
+      navigate("/cart");
+
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+    }
+  };
 
   return (
-    <>
-  
-      <div className="container mx-auto p-6">
-        <h1 className="text-3xl font-bold text-center mb-6">Our Products</h1>
+    <div className="min-h-screen bg-gray-100 p-6">
+      <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">Shoes</h1>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {allProducts.map((AllItems, index) => (
-            <div
-              key={index}
-              className="p-4 shadow-lg rounded-2xl bg-white border border-gray-200 hover:shadow-2xl transition-shadow duration-300"
-            >
-              <Link to={`/ProductDetails/${AllItems.id}`}>
-              <img
-                src={AllItems.image}
-                className="w-full h-64 object-contain rounded-t-lg"
-                alt={AllItems.name}
-              />
-              </Link>
-              <div className="p-4">
-                <h2 className="text-2xl font-semibold mb-2">{AllItems.name}</h2>
-                <p className="text-lg font-bold text-blue-700 mb-3">₹{AllItems.price}</p>
-                
-                <div className="grid grid-cols-2 gap-2">
-                  {isLoggedIn ? (
-                    <button
-                      className="w-full text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-lg px-5 py-2.5"
-                      onClick={() => AddToCart(AllItems)}
-                    >
-                      Add to Cart
-                    </button>
-                  ) : (
-                    <Link to="/login">
-                      <button
-                        className="w-full text-white bg-red-500 hover:bg-red-600 font-medium rounded-lg px-5 py-2.5"
-                      >
-                        Login to Add to Cart
-                      </button>
-                    </Link>
-                  )}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {products.map((product) => (
+          <div key={product.id} className="bg-white shadow-lg rounded-lg p-4 flex flex-col items-center">
+            <Link to={`/product/${product.id}`} className="w-full">
+              <img src={product.images} alt={product.name} className="w-full h-48 object-cover rounded-lg mb-4" />
+              <h2 className="text-xl font-semibold text-gray-800 text-center">{product.name}</h2>
+            </Link>
 
-                  <Link to={"/cart"}>
-                    <button className="w-full text-white bg-pink-500 hover:bg-pink-600 font-medium rounded-lg px-5 py-2.5">
-                      Go to Cart
-                    </button>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+            <p className="text-gray-600 text-sm mb-2">₹{product.price}</p>
+            <button
+              onClick={() => addToCart(product)}
+              className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+              Add to Cart
+            </button>
+          </div>
+        ))}
       </div>
-    </>
+    </div>
   );
 };
 
-export default AllProducts
+export default ProductList;
