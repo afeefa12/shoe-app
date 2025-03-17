@@ -1,13 +1,12 @@
 
-
 // import axios from "axios";
 // import React, { useEffect, useState } from "react";
-// import { Link } from "react-router-dom";
+// import { Link, useNavigate } from "react-router-dom";
 
 // const ProductList = () => {
 //   const [products, setProducts] = useState([]);
-//   const userId = localStorage.getItem("userId");
-
+//   const navigate = useNavigate();
+  
 //   useEffect(() => {
 //     const fetchProducts = async () => {
 //       try {
@@ -21,35 +20,44 @@
 //   }, []);
 
 //   const addToCart = async (product) => {
+//     const userId = localStorage.getItem("user");
+// console.log("userId",userId);
+
 //     if (!userId) {
 //       alert("Please log in to add items to the cart.");
+//       navigate("/login");
 //       return;
 //     }
-
 //     try {
-//       const userRes = await axios.get(`http://localhost:4000/users${userId}`);
-//       let user = userRes.data;
+//       console.log("Fetching user data for ID:", userId);
 
-//       if (!user || !user.cart) {
-//         console.error("User data is missing or cart is undefined.");
+//       const { data: user } = await axios.get(`http://localhost:4000/users/${userId.id}`);
+
+//       if (!user) {
+//         console.error("User not found.");
+//         alert("User not found. Please log in again.");
+//         localStorage.removeItem("userId");
+//         navigate("/login");
 //         return;
 //       }
-
-//       const existingItem = user.cart.find((item) => item.id === product.id);
-//       if (existingItem) {
+//       const updatedCart = user.cart ? [...user.cart] : [];
+//       if (updatedCart.some((item) => item.id === product.id)) {
 //         alert(`${product.name} is already in the cart!`);
 //         return;
 //       }
-
-//       const updatedCart = [...user.cart, product];
+//       updatedCart.push({ ...product, quantity: 1 });
 //       await axios.patch(`http://localhost:4000/users/${userId}`, { cart: updatedCart });
-
+//       localStorage.setItem('cart', JSON.stringify(updatedCart));
+//       window.dispatchEvent(new Event('cartUpdate'));
+      
 //       alert(`${product.name} added to cart!`);
+//       // navigate("/cart");
 //     } catch (error) {
 //       console.error("Error adding to cart:", error);
+//       alert("Failed to add item to cart. Please try again.");
 //     }
 //   };
-
+  
 //   return (
 //     <div className="min-h-screen bg-gray-100 p-6">
 //       <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">Shoes</h1>
@@ -58,14 +66,19 @@
 //         {products.map((product) => (
 //           <div key={product.id} className="bg-white shadow-lg rounded-lg p-4 flex flex-col items-center">
 //             <Link to={`/product/${product.id}`} className="w-full">
-//               <img src={product.images} alt={product.name} className="w-full h-48 object-cover rounded-lg mb-4" />
+//               <img
+//                 src={product.images}
+//                 alt={product.name}
+//                 className="w-full h-48 object-cover rounded-lg mb-4"
+//               />
 //               <h2 className="text-xl font-semibold text-gray-800 text-center">{product.name}</h2>
 //             </Link>
 
 //             <p className="text-gray-600 text-sm mb-2">₹{product.price}</p>
 //             <button
-//               onClick={() => navigate('/Cart')}
-//               className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+//               onClick={() => addToCart(product)}
+//               className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded"
+//             >
 //               Add to Cart
 //             </button>
 //           </div>
@@ -76,13 +89,13 @@
 // };
 
 // export default ProductList;
+
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
-  const userId = localStorage.getItem("userId");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -98,41 +111,43 @@ const ProductList = () => {
   }, []);
 
   const addToCart = async (product) => {
-    if (!userId) {
+    const storedUser = localStorage.getItem("user");
+    if (!storedUser) {
       alert("Please log in to add items to the cart.");
       navigate("/login");
       return;
     }
 
-    try {
-      // Fetch user data
-      const userRes = await axios.get(`http://localhost:4000/users/${userId}`);
-      let user = userRes.data;
+    const userId = JSON.parse(storedUser).id; // Ensure correct ID parsing
 
-      if (!user.cart) {
-        user.cart = []; // Initialize cart if not present
+    try {
+      console.log("Fetching user data for ID:", userId);
+      const { data: user } = await axios.get(`http://localhost:4000/users/${userId}`);
+
+      if (!user) {
+        console.error("User not found.");
+        alert("User not found. Please log in again.");
+        localStorage.removeItem("user");
+        navigate("/login");
+        return;
       }
 
-      // Check if the item is already in the cart
-      const existingItem = user.cart.find((item) => item.id === product.id);
-      if (existingItem) {
+      const updatedCart = user.cart ? [...user.cart] : [];
+      if (updatedCart.some((item) => item.id === product.id)) {
         alert(`${product.name} is already in the cart!`);
         return;
       }
 
-      // Add new product to cart
-      const updatedCart = [...user.cart, { ...product, quantity: 1 }];
+      updatedCart.push({ ...product, quantity: 1 });
 
-      // Update user's cart in the database
       await axios.patch(`http://localhost:4000/users/${userId}`, { cart: updatedCart });
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+      window.dispatchEvent(new Event("cartUpdate"));
 
       alert(`${product.name} added to cart!`);
-      
-      // Navigate to Cart page after adding
-      navigate("/cart");
-
     } catch (error) {
       console.error("Error adding to cart:", error);
+      alert("Failed to add item to cart. Please try again.");
     }
   };
 
@@ -144,14 +159,19 @@ const ProductList = () => {
         {products.map((product) => (
           <div key={product.id} className="bg-white shadow-lg rounded-lg p-4 flex flex-col items-center">
             <Link to={`/product/${product.id}`} className="w-full">
-              <img src={product.images} alt={product.name} className="w-full h-48 object-cover rounded-lg mb-4" />
+              <img
+                src={product.images || "https://via.placeholder.com/150"}
+                alt={product.name}
+                className="w-full h-48 object-cover rounded-lg mb-4"
+              />
               <h2 className="text-xl font-semibold text-gray-800 text-center">{product.name}</h2>
             </Link>
 
             <p className="text-gray-600 text-sm mb-2">₹{product.price}</p>
             <button
               onClick={() => addToCart(product)}
-              className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+              className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded"
+            >
               Add to Cart
             </button>
           </div>

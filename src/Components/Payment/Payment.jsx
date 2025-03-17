@@ -1,229 +1,265 @@
-// // import React, { useState } from 'react';
-// // import { Link } from 'react-router-dom';
-// // import { useCart } from '../Cart/CartContext'; 
 
-// // const Payment = () => {
-// //     const { cart } = useCart(); 
-// //     const [paymentMethod, setPaymentMethod] = useState("cashOnDelivery");
-// //     const [cardDetails, setCardDetails] = useState({ cardNumber: "", expiry: "", cvv: "" });
-// //     const [upiId, setUpiId] = useState("");
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-// //     // Calculate total price
-// //     const totalPrice = cart.reduce((total, product) => total + product.price * product.quantity, 0);
+const Payment = () => {
+    const [cartItems, setCartItems] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [processing, setProcessing] = useState(false);
+    const [paymentMethod, setPaymentMethod] = useState("card"); 
+    const navigate = useNavigate();
+    const userId = JSON.parse(localStorage.getItem("user"));
 
-// //     return (
-// //         <div className="min-h-screen bg-gray-100 py-10">
-// //             <div className="container mx-auto px-4">
-// //                 <h1 className="text-3xl font-bold text-center mb-8">Payment</h1>
+    useEffect(() => {
+        if (!userId) {
+            navigate("/login");
+            return;
+        }
 
-// //                 {/* Order Summary */}
-// //                 <div className="bg-white p-6 rounded-lg shadow-md">
-// //                     <h2 className="text-xl font-semibold mb-4">Order Summary</h2>
-// //                     <div className="space-y-4">
-// //                         {cart.map((product) => (
-// //                             <div key={product.id} className="flex justify-between items-center border-b pb-4">
-// //                                 <div className="flex items-center">
-// //                                     <img
-// //                                         src={product.image}
-// //                                         alt={product.name}
-// //                                         className="w-16 h-16 object-cover rounded-lg"
-// //                                     />
-// //                                     <div className="ml-4">
-// //                                         <h3 className="text-lg font-medium">{product.name}</h3>
-// //                                         <p className="text-sm text-gray-600">Quantity: {product.quantity}</p>
-// //                                     </div>
-// //                                 </div>
-// //                                 <p className="text-lg font-semibold">${(product.price * product.quantity).toFixed(2)}</p>
-// //                             </div>
-// //                         ))}
-// //                     </div>
-// //                     <div className="mt-6 flex justify-between items-center">
-// //                         <h3 className="text-xl font-semibold">Total</h3>
-// //                         <p className="text-xl font-semibold">${totalPrice.toFixed(2)}</p>
-// //                     </div>
-// //                 </div>
+        const fetchCart = async () => {
+            try {
+                const res = await axios.get(`http://localhost:4000/users/${userId.id}`);
+                setCartItems(res.data.cart || []);
+            } catch (error) {
+                console.error("Error fetching cart:", error);
+                setError("Failed to fetch cart. Please try again.");
+            } finally {
+                setLoading(false);
+            }
+        };
 
-// //                 {/* Payment Method */}
-// //                 <div className="bg-white p-6 rounded-lg shadow-md mt-8">
-// //                     <h2 className="text-xl font-semibold mb-4">Payment Method</h2>
-// //                     <div className="space-y-4">
-// //                         <div className="flex items-center">
-// //                             <input
-// //                                 type="radio"
-// //                                 id="cashOnDelivery"
-// //                                 name="paymentMethod"
-// //                                 value="cashOnDelivery"
-// //                                 className="w-5 h-5"
-// //                                 checked={paymentMethod === "cashOnDelivery"}
-// //                                 onChange={(e) => setPaymentMethod(e.target.value)}
-// //                             />
-// //                             <label htmlFor="cashOnDelivery" className="ml-2 text-lg">
-// //                                 Cash on Delivery
-// //                             </label>
-// //                         </div>
-// //                         <div className="flex items-center">
-// //                             <input
-// //                                 type="radio"
-// //                                 id="creditCard"
-// //                                 name="paymentMethod"
-// //                                 value="creditCard"
-// //                                 className="w-5 h-5"
-// //                                 checked={paymentMethod === "creditCard"}
-// //                                 onChange={(e) => setPaymentMethod(e.target.value)}
-// //                             />
-// //                             <label htmlFor="creditCard" className="ml-2 text-lg">
-// //                                 Credit Card
-// //                             </label>
-// //                         </div>
-// //                         {paymentMethod === "creditCard" && (
-// //                             <div className="mt-4 space-y-2">
-// //                                 <input
-// //                                     type="text"
-// //                                     placeholder="Card Number"
-// //                                     className="w-full p-2 border rounded"
-// //                                     value={cardDetails.cardNumber}
-// //                                     onChange={(e) => setCardDetails({ ...cardDetails, cardNumber: e.target.value })}
-// //                                 />
-// //                                 <div className="flex space-x-2">
-// //                                     <input
-// //                                         type="text"
-// //                                         placeholder="Expiry (MM/YY)"
-// //                                         className="w-1/2 p-2 border rounded"
-// //                                         value={cardDetails.expiry}
-// //                                         onChange={(e) => setCardDetails({ ...cardDetails, expiry: e.target.value })}
-// //                                     />
-// //                                     <input
-// //                                         type="text"
-// //                                         placeholder="CVV"
-// //                                         className="w-1/2 p-2 border rounded"
-// //                                         value={cardDetails.cvv}
-// //                                         onChange={(e) => setCardDetails({ ...cardDetails, cvv: e.target.value })}
-// //                                     />
-// //                                 </div>
-// //                             </div>
-// //                         )}
-// //                         <div className="flex items-center">
-// //                             <input
-// //                                 type="radio"
-// //                                 id="gpay"
-// //                                 name="paymentMethod"
-// //                                 value="gpay"
-// //                                 className="w-5 h-5"
-// //                                 checked={paymentMethod === "gpay"}
-// //                                 onChange={(e) => setPaymentMethod(e.target.value)}
-// //                             />
-// //                             <label htmlFor="gpay" className="ml-2 text-lg">
-// //                                 Google Pay (GPay)
-// //                             </label>
-// //                         </div>
-// //                         {paymentMethod === "gpay" && (
-// //                             <div className="mt-4 space-y-2">
-// //                                 <input
-// //                                     type="text"
-// //                                     placeholder="Enter UPI ID"
-// //                                     className="w-full p-2 border rounded"
-// //                                     value={upiId}
-// //                                     onChange={(e) => setUpiId(e.target.value)}
-// //                                 />
-// //                                 <p className="text-sm text-gray-600">OR</p>
-// //                                 <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
-// //                                     Scan QR Code
-// //                                 </button>
-// //                             </div>
-// //                         )}
-// //                     </div>
-// //                 </div>
+        fetchCart();
+    }, [userId, navigate]);
 
-// //                 {/* Confirm Order Button */}
-// //                 <div className="mt-8 text-center">
-// //                     <Link
-// //                         to={`/order?total=${totalPrice.toFixed(2)}&payment=${paymentMethod}`}
-// //                         className="bg-green-500 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-green-600 transition duration-300"
-// //                     >
-// //                         Confirm Order (${totalPrice.toFixed(2)})
-// //                     </Link>
-// //                 </div>
-// //             </div>
-// //         </div>
-// //     );
-// // };
+    const handlePayment = async (e) => {
+        e.preventDefault();
+        setProcessing(true);
 
-// // export default Payment;
+        if (cartItems.length === 0) {
+            alert("Your cart is empty!");
+            setProcessing(false);
+            return;
+        }
+
+        try {
+            const userResponse = await axios.get(`http://localhost:4000/users/${userId.id}`);
+            const existingOrders = userResponse.data.orders || [];
+            const newOrders = cartItems.map((item) => ({
+                ...item,
+                id: `ORD-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+                userId,
+                date: new Date().toISOString(),
+                status: paymentMethod === "cod" ? "Pending" : "Processing",
+                paymentMethod: paymentMethod === "cod" ? "Cash on Delivery" : "Credit Card",
+            }));
 
 
-// import React, { useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom";
-// import { Card, CardContent } from "@/components/ui/card";
-// import { Button } from "@/components/ui/button";
+            await axios.patch(`http://localhost:4000/users/${userId.id}`, {
+                orders: [...existingOrders, ...newOrders],
+                cart: [],
+            });
+            localStorage.removeItem('cart');
+            window.dispatchEvent(new Event('cartUpdate'));
+            setCartItems([]);
+            if (paymentMethod === "cod") {
+                alert("Order Placed Successfully! Pay on delivery.");
+            } else {
+                alert("Payment Successful! Your order has been placed.");
+            }
+            navigate("/order");
+            
+        } catch (error) {
+            console.error("Error processing payment:", error);
+            alert(`Payment failed. Reason: ${error.message || "Unknown error"}`);
+        } finally {
+            setProcessing(false);
+        }
+    };
+    const totalPrice = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+    
+    return (
+        <div className="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-10">
+            <h2 className="text-2xl font-semibold text-gray-800 mb-4">Billing Details</h2>
+            {loading ? (
+                <p className="text-gray-500">Loading cart...</p>
+            ) : error ? (
+                <p className="text-red-500">{error}</p>
+            ) : cartItems.length === 0 ? (
+                <p className="text-gray-500">Your cart is empty</p>
+            ) : (
+                <form onSubmit={handlePayment} className="space-y-6">
+                    <div className="bg-gray-50 p-6 rounded-lg shadow-md">
+                        <h2 className="text-xl font-semibold mb-4">Order Summary</h2>
+                        <div className="space-y-4">
+                            {cartItems.map((product) => (
+                                <div key={product.id} className="flex justify-between items-center border-b pb-4">
+                                    <div className="flex items-center">
+                                        <img
+                                            src={product.image}
+                                            alt={product.name}
+                                            className="w-16 h-16 object-cover rounded-lg"
+                                        />
+                                        <div className="ml-4">
+                                            <h3 className="text-lg font-medium">{product.name}</h3>
+                                            <p className="text-sm text-gray-600">Quantity: {product.quantity}</p>
+                                        </div>
+                                    </div>
+                                    <p className="text-lg font-semibold">${(product.price * product.quantity).toFixed(2)}</p>
+                                </div>
+                            ))}
+                        </div>
+                        <div className="mt-6 flex justify-between items-center">
+                            <h3 className="text-xl font-semibold">Total</h3>
+                            <p className="text-xl font-semibold">${totalPrice.toFixed(2)}</p>
+                        </div>
+                    </div>
+                    <div className="bg-gray-50 p-6 rounded-lg shadow-md">
+                        <h2 className="text-xl font-semibold mb-4">Payment Method</h2>
+                        <div className="space-y-3">
+                            <div className="flex items-center">
+                                <input
+                                    type="radio"
+                                    id="card-payment"
+                                    name="payment-method"
+                                    value="card"
+                                    checked={paymentMethod === "card"}
+                                    onChange={() => setPaymentMethod("card")}
+                                    className="mr-2"
+                                />
+                                <label htmlFor="card-payment" className="text-gray-700">Credit/Debit Card</label>
+                            </div>
+                            <div className="flex items-center">
+                                <input
+                                    type="radio"
+                                    id="cod-payment"
+                                    name="payment-method"
+                                    value="cod"
+                                    checked={paymentMethod === "cod"}
+                                    onChange={() => setPaymentMethod("cod")}
+                                    className="mr-2"
+                                />
+                                <label htmlFor="cod-payment" className="text-gray-700">Cash on Delivery</label>
+                            </div>
+                        </div>
+                    </div>
+                    {paymentMethod === "card" && (
+                        <div className="bg-gray-50 p-6 rounded-lg shadow-md space-y-4">
+                            <h2 className="text-xl font-semibold mb-4">Card Details</h2>
+                            <div>
+                                <label className="block text-gray-700 font-medium mb-1">Card Number *</label>
+                                <input
+                                    type="text"
+                                    placeholder="1234 5678 9012 3456"
+                                    required
+                                    className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                                />
+                            </div>
+                            
+                            <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label className="block text-gray-700 font-medium mb-1">Expiry Date *</label>
+                                    <input
+                                        type="text"
+                                        placeholder="MM/YY"
+                                        required
+                                        className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-gray-700 font-medium mb-1">CVV *</label>
+                                    <input
+                                        type="text"
+                                        placeholder="123"
+                                        required
+                                        className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                                    />
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label className="block text-gray-700 font-medium mb-1">Name on Card *</label>
+                                <input
+                                    type="text"
+                                    placeholder="Name"
+                                    required
+                                    className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                                />
+                            </div>
+                        </div>
+                    )}
+                    <div className="bg-gray-50 p-6 rounded-lg shadow-md space-y-4">
+                        <h2 className="text-xl font-semibold mb-4">Delivery Address</h2>
+                        <div>
+                            <label className="block text-gray-700 font-medium mb-1">Full Name *</label>
+                            <input
+                                type="text"
+                                placeholder="Full Name"
+                                required
+                                className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-gray-700 font-medium mb-1">Street Address *</label>
+                            <input
+                                type="text"
+                                placeholder="street address"
+                                required
+                                className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                            />
+                        </div>
+                        <div className="grid grid-cols-2 gap-4">
+                            <div>
+                                <label className="block text-gray-700 font-medium mb-1">City *</label>
+                                <input
+                                    type="text"
+                                    placeholder="city"
+                                    required
+                                    className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-gray-700 font-medium mb-1">Zip/Postal Code *</label>
+                                <input
+                                    type="text"
+                                    placeholder="postel  code "
+                                    required
+                                    className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                                />
+                            </div>
+                        </div>
+                        <div>
+                            <label className="block text-gray-700 font-medium mb-1">Phone Number *</label>
+                            <input
+                                type="tel"
+                                placeholder="+9112345678"
+                                required
+                                className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                            />
+                        </div>
+                    </div>
+                    
+                    <button
+                        type="submit"
+                        disabled={processing}
+                        className={`w-full py-3 px-4 rounded-lg transition duration-200 ${
+                            processing 
+                            ? "bg-gray-400 cursor-not-allowed" 
+                            : "bg-yellow-500 hover:bg-yellow-600 text-white"
+                        }`}
+                    >
+                        {processing 
+                            ? "Processing..." 
+                            : paymentMethod === "cod" 
+                              ? "Place Order (Pay on Delivery)" 
+                              : "Pay Now"
+                        }
+                    </button>
+                </form>
+            )}
+        </div>
+    );
+};
 
-// const Payment = () => {
-//   const [cart, setCart] = useState([]);
-//   const [selectedPayment, setSelectedPayment] = useState("creditCard");
-//   const navigate = useNavigate();
-
-//   useEffect(() => {
-//     fetch("http://localhost:4000/Cart")
-//       .then((res) => res.json())
-//       .then((data) => setCart(data))
-//       .catch((error) => console.error("Error fetching cart:", error));
-//   }, []);
-
-//   const totalAmount = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-
-//   const handlePayment = () => {
-//     alert(`Payment successful with ${selectedPayment} for $${totalAmount.toFixed(2)}`);
-//     navigate("/confirmation");
-//   };
-
-//   return (
-//     <div className="max-w-2xl mx-auto p-4">
-//       <h1 className="text-2xl font-bold mb-4">Payment</h1>
-//       <Card>
-//         <CardContent className="p-4">
-//           <h2 className="text-lg font-semibold">Order Summary</h2>
-//           {cart.length === 0 ? (
-//             <p>Your cart is empty.</p>
-//           ) : (
-//             <ul className="mb-4">
-//               {cart.map((item) => (
-//                 <li key={item.id} className="flex justify-between py-2">
-//                   <span>{item.name} (x{item.quantity})</span>
-//                   <span>${(item.price * item.quantity).toFixed(2)}</span>
-//                 </li>
-//               ))}
-//             </ul>
-//           )}
-//           <p className="text-lg font-bold">Total: ${totalAmount.toFixed(2)}</p>
-//           <h2 className="text-lg font-semibold mt-4">Payment Method</h2>
-//           <div className="flex gap-4 my-2">
-//             <label>
-//               <input
-//                 type="radio"
-//                 name="payment"
-//                 value="creditCard"
-//                 checked={selectedPayment === "creditCard"}
-//                 onChange={(e) => setSelectedPayment(e.target.value)}
-//               />
-//               Credit Card
-//             </label>
-//             <label>
-//               <input
-//                 type="radio"
-//                 name="payment"
-//                 value="paypal"
-//                 checked={selectedPayment === "paypal"}
-//                 onChange={(e) => setSelectedPayment(e.target.value)}
-//               />
-//               PayPal
-//             </label>
-//           </div>
-//           <Button className="mt-4 w-full" onClick={handlePayment} disabled={cart.length === 0}>
-//             Proceed to Pay
-//           </Button>
-//         </CardContent>
-//       </Card>
-//     </div>
-//   );
-// };
-
-// export default Payment;
+export default Payment;

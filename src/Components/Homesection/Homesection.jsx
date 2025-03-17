@@ -1,17 +1,15 @@
 import React from 'react';
-import banner from '/src/assets/banner.jpg'; // Update with correct path
+import banner from '/src/assets/banner.jpg'; 
 
 const Homesection = () => {
   return (
     <div className='relative'>
       {/* Banner Image */}
       <img 
-        src="https://thumbs.dreamstime.com/b/design-mock-up-banner-illustration-white-sport-sneaker-shoes-banner-footwear-commercials-retail-offers-isolated-335060242.jpg" 
+        src="https://www.jiomart.com/images/product/original/rvfkdf4r4q/urbanbox-uk-8-white-casual-sneakers-sports-lace-up-shoes-for-women-girls-product-images-rvfkdf4r4q-0-202301282117.jpg"
         alt='Banner' 
         className='w-full object-cover object-center'
       />
-
-      {/* Text Overlay */}
       <div className='absolute top-[30%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 text-center'>
         <h1 className='text-1xl  sm:textt-2xl md:text-3xl lg:text-5xl font-bold text-red-600'>
           Discover your Next Adventure

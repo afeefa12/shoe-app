@@ -1,90 +1,335 @@
+
 // import axios from "axios";
 // import React, { useEffect, useState } from "react";
-// import { useParams, Link } from "react-router-dom";
-// import { FaShoppingCart, FaArrowLeft } from "react-icons/fa";
+// import { useParams, useNavigate, Link } from "react-router-dom";
 
-// const ProductDetails = ({ AddToCart }) => {
-//   const { id } = useParams();
+// const ProductDetails = () => {
+//   const { productId } = useParams();
 //   const [product, setProduct] = useState(null);
-//   const [loading, setLoading] = useState(true);
-
+//   const [selectedSize, setSelectedSize] = useState("");
+//   const [quantity, setQuantity] = useState(1);
+//   const userId = localStorage.getItem("userId");
+//   const navigate = useNavigate();
 //   useEffect(() => {
-//     const fetchProduct = async () => {
+//     const fetchProductDetails = async () => {
 //       try {
-//         const response = await axios.get(
-//           `http://localhost:4000/products/${id}`
-//         );
-//         setProduct(response.data);
+//         const res = await axios.get(`http://localhost:4000/Products/${productId}`);
+//         setProduct(res.data);
 //       } catch (error) {
 //         console.error("Error fetching product details:", error);
-//       } finally {
-//         setLoading(false);
 //       }
 //     };
+//     fetchProductDetails();
+//   }, [productId]);
+//   const addToCart = async () => {
+//     if (!userId) {
+//       alert("Please log in to add items to the cart.");
+//       navigate("/login");
+//       return;
+//     }
+//     if (!selectedSize) {
+//       alert("Please select a size before adding to cart.");
+//       return;
+//     }
+//     try {
+//       const userRes = await axios.get(`http://localhost:4000/users/${userId}`);
+//       let user = userRes.data;
 
-//     fetchProduct();
-//   }, [id]);
+//       if (!user.cart) {
+//         user.cart = [];
+//       }
 
-//   if (loading) {
-//     return (
-//       <div className="text-center mt-10 text-2xl font-semibold">
-//         Loading product details...
-//       </div> 
-//     );
-//   }
+//       const existingItem = user.cart.find(
+//         (item) => item.id === product.id && item.size === selectedSize
+//       );
+
+//       if (existingItem) {
+//         alert(`${product.name} (Size: ${selectedSize}) is already in the cart!`);
+//         return;
+//       }
+
+//       const updatedCart = [...user.cart, { ...product, size: selectedSize, quantity }];
+
+//       await axios.patch(`http://localhost:4000/users/${userId}`, { cart: updatedCart });
+
+//       alert(`${product.name} (Size: ${selectedSize}) added to cart!`);
+//       navigate("/cart");
+//     } catch (error) {
+//       console.error("Error adding to cart:", error);
+//     }
+//   };
 
 //   if (!product) {
-//     return (
-//       <div className="text-center mt-10 text-2xl font-semibold text-red-500">
-//         Product not found
-//       </div>
-//     );
+//     return <div className="text-center text-gray-700 mt-10">Loading product details...</div>;
 //   }
 
 //   return (
-//     <>
-//       <div className="container mx-auto p-6">
-//         <div className="max-w-4xl mx-auto bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
-//           <img
-//             src={product.image}
-//             alt={product.name}
-//             className="w-full h-96 object-contain mb-6 rounded-lg border border-gray-200"
-//           />
-//           <h1 className="text-4xl font-bold mb-4 text-gray-800">
-//             {product.name}
-//           </h1>
-//           <p className="text-3xl text-blue-700 font-semibold mb-4">
-//             ₹{product.price}
-//           </p>
-//           <p className="text-gray-600 mb-6 leading-relaxed">
-//             {product.description}
-//           </p>
+//     <div className="p-6 bg-gray-100 min-h-screen">
+//       <div className="max-w-5xl mx-auto bg-white rounded-lg shadow-lg p-6">
+//         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+//           <div className="flex justify-center">
+//             <img
+//               src={product.image}
+//               alt={product.name}
+//               className="w-full h-80 object-cover rounded-lg shadow-md"
+//             />
+//           </div>
+//           <div>
+//             <h1 className="text-3xl font-bold text-gray-800">{product.name}</h1>
+//             <p className="text-lg text-gray-600 mt-2">{product.description}</p>
+//             <p className="text-2xl font-semibold text-green-600 mt-4">Price: ₹{product.price}</p>
+//             {product.size && product.size.length > 0 && (
+//               <div className="mt-4">
+//                 <label htmlFor="size" className="block text-sm font-medium text-gray-700">
+//                   Select Size:
+//                 </label>
+//                 <select
+//                   id="size"
+//                   value={selectedSize}
+//                   onChange={(e) => setSelectedSize(e.target.value)}
+//                   className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+//                 >
+//                   <option value="">Select Size</option>
+//                   {product.size.map((size) => (
+//                     <option key={size} value={size}>
+//                       {size}
+//                     </option>
+//                   ))}
+//                 </select>
+//               </div>
+//             )}
+//             <div className="mt-4">
+//               <label htmlFor="quantity" className="block text-sm font-medium text-gray-700">
+//                 Quantity:
+//               </label>
+//               <div className="mt-1 flex items-center">
+//                 <button
+//                   onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}
+//                   className="px-3 py-1 border border-gray-300 rounded-l-md bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+//                 >
+                  
+//                 </button>
+//                 <input
+//                   type="number"
+//                   id="quantity"
+//                   value={quantity}
+//                   min="1"
+//                   onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
+//                   className="w-16 text-center px-3 py-1 border-t border-b border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+//                 />
+//                 <button
+//                   onClick={() => setQuantity((prev) => prev + 1)}
+//                   className="px-3 py-1 border border-gray-300 rounded-r-md bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+//                 >
+//                   +
+//                 </button>
+//               </div>
+//             </div>
 
-//           <div className="flex items-center space-x-4">
-//             <button
-//               onClick={() => {
-//                 AddToCart(product);
-//                 alert(`${product.name} added to cart!`);
-//               }}
-//               className="flex items-center space-x-2 text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg px-5 py-2.5 transition-transform transform hover:scale-105"
-//             >
-//               <FaShoppingCart />
-//               <span>Add to Cart</span>
-//             </button>
-
-//             <Link
-//               to="/allproducts"
-//               className="flex items-center space-x-2 text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-lg px-5 py-2.5 transition-transform transform hover:scale-105"
-//             >
-//               <FaArrowLeft />
-//               <span>Back to Products</span>
-//             </Link>
+//             <div className="mt-6">
+//               <button
+//                 className={`bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition w-full text-center ${
+//                   !userId || !selectedSize ? "opacity-50 cursor-not-allowed" : ""
+//                 }`}
+//                 onClick={() => addToCart(product)}
+//                 disabled={!userId || !selectedSize}
+//               >
+//                 Add to Cart
+//               </button>
+//             </div>
 //           </div>
 //         </div>
+
+//         <div className="mt-6 flex justify-center">
+//           <Link to="/products" className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition">
+//             Back to Products
+//           </Link>
+//         </div>
 //       </div>
-//     </>
+//     </div>
 //   );
 // };
-
 // export default ProductDetails;
 
+
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate, Link } from "react-router-dom";
+
+const ProductDetails = () => {
+  const { productId } = useParams();
+  const [product, setProduct] = useState(null);
+  const [selectedSize, setSelectedSize] = useState("");
+  const [quantity, setQuantity] = useState(1);
+  const [loading, setLoading] = useState(true);
+  const userId = JSON.parse(localStorage.getItem("user"));
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchProductDetails = async () => {
+      try {
+        setLoading(true);
+        const res = await axios.get(`http://localhost:4000/Products/${productId}`);
+        setProduct(res.data);
+      } catch (error) {
+        console.error("Error fetching product details:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchProductDetails();
+  }, [productId]);
+
+  const addToCart = async () => {
+    if (!userId) {
+      alert("Please log in to add items to the cart.");
+      navigate("/login");
+      return;
+    }
+    
+    if (!selectedSize && product.size && product.size.length > 0) {
+      alert("Please select a size before adding to cart.");
+      return;
+    }
+    
+    try {
+      const userRes = await axios.get(`http://localhost:4000/users/${userId.id}`);
+      let user = userRes.data;
+
+      if (!user.cart) {
+        user.cart = [];
+      }
+
+      
+      const existingItemIndex = user.cart.findIndex(
+        (item) => item.productId === product.id && item.size === selectedSize
+      );
+
+      let updatedCart;
+      
+      if (existingItemIndex !== -1) {
+        alert(`${product.name} (Size: ${selectedSize}) is already in the cart!`);
+        return;
+      } else {
+        
+        const cartItem = {
+          productId: product.id,
+          id: product.id, 
+          name: product.name,
+          price: product.price,
+          image: product.image,
+          description: product.description,
+          size: selectedSize,
+          quantity: quantity
+        };
+        
+        updatedCart = [...user.cart, cartItem];
+      }
+
+      await axios.patch(`http://localhost:4000/users/${userId.id}`, { cart: updatedCart });
+
+      alert(`${product.name} (Size: ${selectedSize}) added to cart!`);
+      navigate("/cart");
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+      alert("Failed to add item to cart. Please try again.");
+    }
+  };
+
+  if (loading) {
+    return <div className="text-center text-gray-700 mt-10">Loading product details...</div>;
+  }
+
+  if (!product) {
+    return <div className="text-center text-gray-700 mt-10">Product not found</div>;
+  }
+
+  return (
+    <div className="p-6 bg-gray-100 min-h-screen">
+      <div className="max-w-5xl mx-auto bg-white rounded-lg shadow-lg p-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="flex justify-center">
+            <img
+              src={product.image}
+              alt={product.name}
+              className="w-full h-80 object-cover rounded-lg shadow-md"
+            />
+          </div>
+          <div>
+            <h1 className="text-3xl font-bold text-gray-800">{product.name}</h1>
+            <p className="text-lg text-gray-600 mt-2">{product.description}</p>
+            <p className="text-2xl font-semibold text-green-600 mt-4">Price: ₹{product.price}</p>
+            {product.size && product.size.length > 0 && (
+              <div className="mt-4">
+                <label htmlFor="size" className="block text-sm font-medium text-gray-700">
+                  Select Size:
+                </label>
+                <select
+                  id="size"
+                  value={selectedSize}
+                  onChange={(e) => setSelectedSize(e.target.value)}
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                >
+                  <option value="">Select Size</option>
+                  {product.size.map((size) => (
+                    <option key={size} value={size}>
+                      {size}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
+            <div className="mt-4">
+              <label htmlFor="quantity" className="block text-sm font-medium text-gray-700">
+                Quantity:
+              </label>
+              <div className="mt-1 flex items-center">
+                <button
+                  onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}
+                  className="px-3 py-1 border border-gray-300 rounded-l-md bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                >
+                  -
+                </button>
+                <input
+                  type="number"
+                  id="quantity"
+                  value={quantity}
+                  min="1"
+                  onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
+                  className="w-16 text-center px-3 py-1 border-t border-b border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                />
+                <button
+                  onClick={() => setQuantity((prev) => prev + 1)}
+                  className="px-3 py-1 border border-gray-300 rounded-r-md bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+
+            <div className="mt-6">
+              <button
+                className={`bg-yellow-500 text-white px-6 py-3 rounded-lg hover:bg-yellow-600 transition w-full text-center ${
+                  !userId || (!selectedSize && product.size && product.size.length > 0) ? "opacity-50" : ""
+                }`}
+                onClick={addToCart}
+                disabled={!userId || (!selectedSize && product.size && product.size.length > 0)}
+              >
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-6 flex justify-center">
+          <Link to="/products" className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition">
+            Back to Products
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ProductDetails;
