@@ -103,15 +103,15 @@ function Navbar() {
   const displayName = user?.name ? (user.name.split(' ')[0]) : 'User';
 
   return (
-    <header className="bg-amber-500 border-b border-gray-200">
-      <div className="flex justify-between p-5 items-center">
+    <header className="bg-amber-500 border-b border-gray-200 ">
+      <div className="flex justify-between p-5 items-center  top-0 z-50 sticky ">
         <div>
           <Link to="/">
             <h3 className="font-bold text-2xl">Shoe-<span>walk</span></h3>
           </Link>
         </div>
         <div className="hidden md:block">
-          <ul className="flex items-center text-lg justify-center font-semibold">
+          <ul className="flex items-center text-lg justify-center font-semibold  ">
             <Link to="/"><li className="mr-5 hover:text-gray-900 cursor-pointer">Home</li></Link>
             <Link to="/products"><li className="mr-5 hover:text-gray-900 cursor-pointer">All Products</li></Link>
             <Link to='/Men'><li className="mr-5 hover:text-gray-900 cursor-pointer">Mens</li></Link>

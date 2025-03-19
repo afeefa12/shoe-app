@@ -1,6 +1,13 @@
 {
   "users": [
     {
+      "id": "563",
+      "name": "admin",
+      "email": "admin@gmail.com",
+      "password": "1234",
+      "role" : "admin"
+    },
+    {
       "id": "c953",
       "name": "evan",
       "email": "Evan@gmail.com",
@@ -59,7 +66,16 @@
       "name": "aflah",
       "email": "aflah12@gmail.com",
       "password": "1234",
-      "cart": [],
+      "cart": [
+        {
+          "id": "12",
+          "name": "Shiny sports shoe",
+          "price": 3499,
+          "quantity": 1,
+          "categories": "women",
+          "images": "https://m.media-amazon.com/images/I/61BqoKOXN-L._AC_UL480_FMwebp_QL65_.jpg"
+        }
+      ],
       "orders": [
         {
           "id": "12",
@@ -376,7 +392,16 @@
       "name": "aneena",
       "email": "aneena1@gmail.com",
       "password": "1234",
-      "cart": [],
+      "cart": [
+        {
+          "id": "12",
+          "name": "Shiny sports shoe",
+          "price": 3499,
+          "quantity": 1,
+          "categories": "women",
+          "images": "https://m.media-amazon.com/images/I/61BqoKOXN-L._AC_UL480_FMwebp_QL65_.jpg"
+        }
+      ],
       "orders": [
         {
           "id": "ORD-1742043200107-477",
@@ -435,8 +460,207 @@
           "date": "2025-03-17T03:52:11.260Z",
           "status": "Pending",
           "paymentMethod": "Cash on Delivery"
+        },
+        {
+          "id": "ORD-1742198927227-34",
+          "name": "Shiny sports shoe",
+          "price": 3499,
+          "quantity": 1,
+          "categories": "women",
+          "images": "https://m.media-amazon.com/images/I/61BqoKOXN-L._AC_UL480_FMwebp_QL65_.jpg",
+          "userId": {
+            "id": "e8a5",
+            "name": "aneena",
+            "email": "aneena1@gmail.com",
+            "password": "1234",
+            "cart": [
+              {
+                "id": "12",
+                "name": "Shiny sports shoe",
+                "price": 3499,
+                "quantity": 1,
+                "categories": "women",
+                "images": "https://m.media-amazon.com/images/I/61BqoKOXN-L._AC_UL480_FMwebp_QL65_.jpg"
+              }
+            ],
+            "orders": [
+              {
+                "id": "ORD-1742043200107-477",
+                "name": "Fashinable High Heel",
+                "price": 2999,
+                "quantity": 1,
+                "categories": "women",
+                "images": "https://m.media-amazon.com/images/I/61DEiK9k1tL._AC_UL480_FMwebp_QL65_.jpg",
+                "userId": {
+                  "id": "e8a5",
+                  "name": "aneena",
+                  "email": "aneena1@gmail.com",
+                  "password": "1234",
+                  "cart": [],
+                  "orders": []
+                },
+                "date": "2025-03-15T12:53:20.107Z",
+                "status": "Processing",
+                "paymentMethod": "Credit Card"
+              },
+              {
+                "id": "ORD-1742183531260-18",
+                "name": "Shiny sports shoe",
+                "price": 3499,
+                "quantity": 1,
+                "categories": "women",
+                "images": "https://m.media-amazon.com/images/I/61BqoKOXN-L._AC_UL480_FMwebp_QL65_.jpg",
+                "userId": {
+                  "id": "e8a5",
+                  "name": "aneena",
+                  "email": "aneena1@gmail.com",
+                  "password": "1234",
+                  "cart": [],
+                  "orders": [
+                    {
+                      "id": "ORD-1742043200107-477",
+                      "name": "Fashinable High Heel",
+                      "price": 2999,
+                      "quantity": 1,
+                      "categories": "women",
+                      "images": "https://m.media-amazon.com/images/I/61DEiK9k1tL._AC_UL480_FMwebp_QL65_.jpg",
+                      "userId": {
+                        "id": "e8a5",
+                        "name": "aneena",
+                        "email": "aneena1@gmail.com",
+                        "password": "1234",
+                        "cart": [],
+                        "orders": []
+                      },
+                      "date": "2025-03-15T12:53:20.107Z",
+                      "status": "Processing",
+                      "paymentMethod": "Credit Card"
+                    }
+                  ]
+                },
+                "date": "2025-03-17T03:52:11.260Z",
+                "status": "Pending",
+                "paymentMethod": "Cash on Delivery"
+              }
+            ]
+          },
+          "date": "2025-03-17T08:08:47.227Z",
+          "status": "Pending",
+          "paymentMethod": "Cash on Delivery"
+        },
+        {
+          "productId": "12",
+          "id": "ORD-1742202093914-741",
+          "name": "Shiny sports shoe",
+          "price": 3499,
+          "size": "",
+          "quantity": 1,
+          "userId": {
+            "id": "e8a5",
+            "name": "aneena",
+            "email": "aneena1@gmail.com",
+            "password": "1234",
+            "cart": [
+              {
+                "id": "12",
+                "name": "Shiny sports shoe",
+                "price": 3499,
+                "quantity": 1,
+                "categories": "women",
+                "images": "https://m.media-amazon.com/images/I/61BqoKOXN-L._AC_UL480_FMwebp_QL65_.jpg"
+              }
+            ],
+            "orders": [
+              {
+                "id": "ORD-1742043200107-477",
+                "name": "Fashinable High Heel",
+                "price": 2999,
+                "quantity": 1,
+                "categories": "women",
+                "images": "https://m.media-amazon.com/images/I/61DEiK9k1tL._AC_UL480_FMwebp_QL65_.jpg",
+                "userId": {
+                  "id": "e8a5",
+                  "name": "aneena",
+                  "email": "aneena1@gmail.com",
+                  "password": "1234",
+                  "cart": [],
+                  "orders": []
+                },
+                "date": "2025-03-15T12:53:20.107Z",
+                "status": "Processing",
+                "paymentMethod": "Credit Card"
+              },
+              {
+                "id": "ORD-1742183531260-18",
+                "name": "Shiny sports shoe",
+                "price": 3499,
+                "quantity": 1,
+                "categories": "women",
+                "images": "https://m.media-amazon.com/images/I/61BqoKOXN-L._AC_UL480_FMwebp_QL65_.jpg",
+                "userId": {
+                  "id": "e8a5",
+                  "name": "aneena",
+                  "email": "aneena1@gmail.com",
+                  "password": "1234",
+                  "cart": [],
+                  "orders": [
+                    {
+                      "id": "ORD-1742043200107-477",
+                      "name": "Fashinable High Heel",
+                      "price": 2999,
+                      "quantity": 1,
+                      "categories": "women",
+                      "images": "https://m.media-amazon.com/images/I/61DEiK9k1tL._AC_UL480_FMwebp_QL65_.jpg",
+                      "userId": {
+                        "id": "e8a5",
+                        "name": "aneena",
+                        "email": "aneena1@gmail.com",
+                        "password": "1234",
+                        "cart": [],
+                        "orders": []
+                      },
+                      "date": "2025-03-15T12:53:20.107Z",
+                      "status": "Processing",
+                      "paymentMethod": "Credit Card"
+                    }
+                  ]
+                },
+                "date": "2025-03-17T03:52:11.260Z",
+                "status": "Pending",
+                "paymentMethod": "Cash on Delivery"
+              }
+            ]
+          },
+          "date": "2025-03-17T09:01:33.914Z",
+          "status": "Pending",
+          "paymentMethod": "Cash on Delivery"
         }
       ]
+    },
+    {
+      "id": "8b39",
+      "name": "anisha",
+      "email": "anish3@gmail.com",
+      "password": "1234",
+      "cart": [],
+      "orders": []
+    },
+    {
+      "id": "5bf4",
+      "name": "afnan",
+      "email": "afnan@gmail.com",
+      "password": "1234",
+      "cart": [
+        {
+          "id": "12",
+          "name": "Shiny sports shoe",
+          "price": 3499,
+          "quantity": 1,
+          "categories": "women",
+          "images": "https://m.media-amazon.com/images/I/61BqoKOXN-L._AC_UL480_FMwebp_QL65_.jpg"
+        }
+      ],
+      "orders": []
     }
   ],
   "Products": [
