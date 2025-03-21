@@ -16,7 +16,7 @@ const Signup = () => {
       const res = await fetch("http://localhost:4000/users", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, password, cart:[], orders :[] }),
+        body: JSON.stringify({ name, email, password,role: 'user', cart:[], orders :[] }),
       });
 
       if (res.ok) {

@@ -5,7 +5,7 @@
       "name": "admin",
       "email": "admin@gmail.com",
       "password": "1234",
-      "role" : "admin"
+      "role": "admin"
     },
     {
       "id": "c953",
@@ -59,7 +59,8 @@
           "status": "Pending",
           "paymentMethod": "Cash on Delivery"
         }
-      ]
+      ],
+      "isBlocked": true
     },
     {
       "id": "0274",
@@ -110,13 +111,15 @@
           "date": "2025-03-14T17:55:23.021Z",
           "status": "Processing"
         }
-      ]
+      ],
+      "isBlocked": true
     },
     {
       "id": "bdb9",
       "name": "ajsal",
       "email": "ajsal12@gmail.com",
-      "password": "1234"
+      "password": "1234",
+      "isBlocked": true
     },
     {
       "id": "6ab2",
@@ -179,7 +182,8 @@
           "status": "Pending",
           "paymentMethod": "Cash on Delivery"
         }
-      ]
+      ],
+      "isBlocked": false
     },
     {
       "id": "cf0d",
@@ -400,6 +404,14 @@
           "quantity": 1,
           "categories": "women",
           "images": "https://m.media-amazon.com/images/I/61BqoKOXN-L._AC_UL480_FMwebp_QL65_.jpg"
+        },
+        {
+          "id": "13",
+          "name": "Shiny black leather shoe",
+          "price": 1599,
+          "quantity": 1,
+          "categories": "women",
+          "images": "https://m.media-amazon.com/images/I/410Z9J-mP6L._AC_UF480,480_SR480,480_.jpg"
         }
       ],
       "orders": [
@@ -661,17 +673,56 @@
         }
       ],
       "orders": []
+    },
+    {
+      "id": "e64a",
+      "name": "minha",
+      "email": "minha@gmail.com",
+      "password": "1234",
+      "cart": [],
+      "orders": [
+        {
+          "id": "ORD-1742450442487-792",
+          "name": "Shiny sports shoe",
+          "price": 3499,
+          "quantity": 1,
+          "categories": "women",
+          "images": "https://m.media-amazon.com/images/I/61BqoKOXN-L._AC_UL480_FMwebp_QL65_.jpg",
+          "userId": {
+            "id": "e64a",
+            "name": "minha",
+            "email": "minha@gmail.com",
+            "password": "1234",
+            "cart": [],
+            "orders": []
+          },
+          "date": "2025-03-20T06:00:42.487Z",
+          "status": "Pending",
+          "paymentMethod": "Cash on Delivery"
+        },
+        {
+          "id": "ORD-1742450442487-169",
+          "name": "Shiny Red heel",
+          "price": 1999,
+          "quantity": 1,
+          "categories": "women",
+          "images": "https://m.media-amazon.com/images/I/71biQP-kH1L._AC_UL480_FMwebp_QL65_.jpg",
+          "userId": {
+            "id": "e64a",
+            "name": "minha",
+            "email": "minha@gmail.com",
+            "password": "1234",
+            "cart": [],
+            "orders": []
+          },
+          "date": "2025-03-20T06:00:42.487Z",
+          "status": "Pending",
+          "paymentMethod": "Cash on Delivery"
+        }
+      ]
     }
   ],
   "Products": [
-    {
-      "id": "11",
-      "name": "Shiny Red heel",
-      "price": 1999,
-      "quantity": 20,
-      "categories": "women",
-      "images": "https://m.media-amazon.com/images/I/71biQP-kH1L._AC_UL480_FMwebp_QL65_.jpg"
-    },
     {
       "id": "12",
       "name": "Shiny sports shoe",
@@ -791,6 +842,14 @@
       "quantity": 15,
       "categories": "women",
       "images": "//lp2.hm.com/hmgoepprod?set=format%5Bwebp%5D%2Cquality%5B79%5D%2Csource%5B%2F26%2Fcc%2F26ccd57b07bb57632ebb83eb93bf834bb3fa7f9a.jpg%5D%2Corigin%5Bdam%5D%2Ccategory%5Bladies_premium_selection_shoes%5D%2Ctype%5BDESCRIPTIVESTILLLIFE%5D%2Cres%5Bm%5D%2Chmver%5B2%5D&call=url%5Bfile%3A%2Fproduct%2Fmain%5D"
+    },
+    {
+      "id": "8926",
+      "name": "sneakers",
+      "price": "120",
+      "category": "men",
+      "images": "",
+      "image": "https://th.bing.com/th/id/OIP.ISy5ckVKrGUtUmg7Wr4jAAHaHU?rs=1&pid=ImgDetMain"
     }
   ],
   "orders": [

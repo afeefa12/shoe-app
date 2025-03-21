@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -97,7 +96,7 @@ const Payment = () => {
                                 <div key={product.id} className="flex justify-between items-center border-b pb-4">
                                     <div className="flex items-center">
                                         <img
-                                            src={product.image}
+                                            src={product.images}
                                             alt={product.name}
                                             className="w-16 h-16 object-cover rounded-lg"
                                         />
