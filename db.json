@@ -246,7 +246,7 @@
       "name": "faizy",
       "email": "faizy@gmail.com",
       "password": "1234",
-      "isBlocked": true
+      "isBlocked": false
     },
     {
       "id": "94d1",
@@ -859,7 +859,8 @@
           "status": "Shipped",
           "paymentMethod": "Cash on Delivery"
         }
-      ]
+      ],
+      "isBlocked": true
     },
     {
       "id": "e4ff",
@@ -891,6 +892,36 @@
         }
       ],
       "isBlocked": true
+    },
+    {
+      "id": "1ed4",
+      "name": "rinsha",
+      "email": "rinsha@gmail.com",
+      "password": "1234",
+      "role": "users",
+      "cart": [],
+      "orders": [
+        {
+          "id": "ORD-1742796012329-902",
+          "name": "Shiny black leather shoe",
+          "price": 1599,
+          "quantity": 1,
+          "categories": "women",
+          "images": "https://m.media-amazon.com/images/I/410Z9J-mP6L._AC_UF480,480_SR480,480_.jpg",
+          "userId": {
+            "id": "1ed4",
+            "name": "rinsha",
+            "email": "rinsha@gmail.com",
+            "password": "1234",
+            "role": "users",
+            "cart": [],
+            "orders": []
+          },
+          "date": "2025-03-24T06:00:12.329Z",
+          "status": "Pending",
+          "paymentMethod": "Cash on Delivery"
+        }
+      ]
     }
   ],
   "Products": [
@@ -1021,15 +1052,17 @@
       "name": "sneakers",
       "price": "1200",
       "categories": "men",
-      "images": "https://www.istockphoto.com/photo/hiker-feet-hiking-on-stone-trail-gm516313981-48222146?utm_source=pixabay&utm_medium=affiliate&utm_campaign=sponsored_image&utm_content=srp_topbanner_media&utm_term=shoes",
-      "image": "https://th.bing.com/th/id/OIP.ISy5ckVKrGUtUmg7Wr4jAAHaHU?rs=1&pid=ImgDetMain"
+      "images": "https://m.media-amazon.com/images/I/61tZ+Gs-5HL._AC_UL480_FMwebp_QL65_.jpg",
+      "image": "https://th.bing.com/th/id/OIP.ISy5ckVKrGUtUmg7Wr4jAAHaHU?rs=1&pid=ImgDetMain",
+      "category": ""
     },
     {
       "id": "ba9c",
-      "name": "hii",
+      "name": " shoe",
       "price": "900",
       "categories": "men",
-      "images": "https://www.istockphoto.com/photo/hiker-feet-hiking-on-stone-trail-gm516313981-48222146?utm_source=pixabay&utm_medium=affiliate&utm_campaign=sponsored_image&utm_content=srp_topbanner_media&utm_term=shoes"
+      "images": "https://m.media-amazon.com/images/I/71OhPni7qQL._AC_UL480_FMwebp_QL65_.jpg",
+      "category": "me"
     },
     {
       "id": "bf2a",
@@ -1037,6 +1070,13 @@
       "price": "789",
       "categories": "men",
       "images": "https://m.media-amazon.com/images/I/714OlGkvgbL._AC_UL480_FMwebp_QL65_.jpg"
+    },
+    {
+      "id": "646f",
+      "name": "SS",
+      "price": "789",
+      "categories": "women",
+      "images": "https://m.media-amazon.com/images/I/51V+o9sZBgL._AC_UL480_FMwebp_QL65_.jpg"
     }
   ],
   "orders": [

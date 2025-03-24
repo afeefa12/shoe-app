@@ -26,7 +26,6 @@ const AdminOrders = () => {
           .filter(user => user.orders && user.orders.length > 0)
           .flatMap(user => user.orders.map(order => ({
             ...order,
-            // customerName: user.username,
             customerEmail: user.email,
             orderId: order.id ,
             userId: user.id,

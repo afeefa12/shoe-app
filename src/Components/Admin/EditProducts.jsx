@@ -8,7 +8,6 @@ const navigate = useNavigate();
 const [product, setProduct] = useState({
     name: '',
     price: '',
-    description: '',
     categories: '',
     images: '', 
 });
@@ -119,21 +118,6 @@ return (
             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
             placeholder="Enter price"
             required
-            />
-        </div>
-
-        <div>
-            <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
-            Description
-            </label>
-            <textarea
-            id="description"
-            name="description"
-            value={product.description}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
-            placeholder="Enter product description"
-            rows="4"
             />
         </div>
 

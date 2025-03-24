@@ -37,7 +37,6 @@ const Addproducts = () => {
       setProduct({
         name: "",
         price: "",
-        description: "",
         categories: "",
         images: ""
       });
@@ -94,20 +93,7 @@ const Addproducts = () => {
           />
         </div>
 
-        <div>
-          <label className="block text-sm font-medium text-yellow-700">
-            Description
-          </label>
-          <textarea
-            name="description"
-            value={product.description}
-            onChange={handleChange}
-            className="mt-1 block w-full rounded-md border-yellow-300 shadow-sm focus:border-yellow-400 focus:ring focus:ring-orange-200 focus:ring-opacity-50"
-            placeholder="Enter product description"
-            rows="3"
-            disabled={isLoading}
-          />
-        </div>
+ 
 
         <div>
           <label className="block text-sm font-medium text-yellow-700">
