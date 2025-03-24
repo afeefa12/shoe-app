@@ -23,7 +23,7 @@ const HamburgerIcon = ({ isOpen, toggle }) => (
   </button>
 );
 
-const AdminSidebar = ({ user, logout }) => {
+const AdminSidebar = ({ user }) => {
   const [isOpen, setIsOpen] = useState(window.innerWidth >= 1024);
   const navigate = useNavigate();
   const location = useLocation();
@@ -46,8 +46,9 @@ const AdminSidebar = ({ user, logout }) => {
 
   const handleLogout = () => {
     console.log("Logout triggered");
-    logout(); // Call the logout function from App.jsx
-    navigate("/home"); // Navigate to home page
+    localStorage.removeItem("user")  
+    navigate("/"); 
+    logout(); 
   };
 
   const toggleSidebar = () => {
@@ -56,36 +57,30 @@ const AdminSidebar = ({ user, logout }) => {
 
   const menuItems = [
     { to: "/Dashboard", icon: <FaTachometerAlt />, label: "Dashboard" },
-    { to: "/admin/products", icon: <FaBox />, label: "Products" },
-    { to: "/admin/orders", icon: <FaShoppingCart />, label: "Orders" }, // Fixed: Removed extra comma
+    { to: "/admin/Products", icon: <FaBox />, label: "Products" },
+    { to: "/admin/orders", icon: <FaShoppingCart />, label: "Orders" },
     { to: "/admin/users", icon: <FaUsers />, label: "Users" },
   ];
 
   if (!user || user.role !== "admin") {
     console.log("Sidebar not rendered - User:", user);
-    return null; // Don’t render sidebar if not admin
+    return null;
   }
 
   return (
     <>
-      {/* Mobile Hamburger Icon */}
       <div className="lg:hidden fixed top-4 left-4 z-50 bg-white rounded-full shadow-md flex items-center justify-center w-12 h-12">
         <HamburgerIcon isOpen={isOpen} toggle={toggleSidebar} />
       </div>
-
-      {/* Sidebar */}
       <div
         className={`fixed top-0 left-0 w-72 h-screen bg-yellow-600 text-gray-800 p-6 flex flex-col shadow-xl transition-transform duration-300 ease-in-out z-40
           ${isOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0 lg:w-72`}
       >
-        {/* Header */}
         <div className="flex-shrink-0">
           <h2 className="text-2xl font-extrabold mb-8 pb-4 border-b border-yellow-600 tracking-wide text-center text-gray-900">
             Admin Panel
           </h2>
         </div>
-
-        {/* Navigation */}
         <nav className="space-y-2 flex-1">
           {menuItems.map(({ to, icon, label }) => (
             <Link
@@ -108,8 +103,6 @@ const AdminSidebar = ({ user, logout }) => {
             </Link>
           ))}
         </nav>
-
-        {/* Logout Button */}
         <div className="mt-6">
           <button
             onClick={handleLogout}
@@ -119,8 +112,6 @@ const AdminSidebar = ({ user, logout }) => {
           </button>
         </div>
       </div>
-
-      {/* Sidebar Overlay for Mobile */}
       {isOpen && (
         <div
           className="fixed inset-0 bg-gray-900 bg-opacity-50 z-30 lg:hidden"

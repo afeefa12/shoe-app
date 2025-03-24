@@ -6,7 +6,7 @@ const Homesection = () => {
     <div className='relative'>
       {/* Banner Image */}
       <img 
-        src="https://cdn.pixabay.com/photo/2022/10/08/17/04/shoes-7507418_1280.jpg"
+        src="https://cdn.pixabay.com/photo/2021/06/03/08/06/sneep-crew-6306333_1280.jpg"
         alt='Banner' 
         className='w-full object-cover object-center h-[100vh]'
       />

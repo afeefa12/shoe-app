@@ -12,16 +12,12 @@ const Dashboard = () => {
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
   console.log(dashboardData)
-
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       setError(null);
-
       try {
-        // Fetch users and products simultaneously
         const [usersRes, productsRes] = await Promise.all([
           fetch('http://localhost:4000/users'),
           fetch('http://localhost:4000/Products'),
@@ -30,26 +26,18 @@ const Dashboard = () => {
         if (!usersRes.ok) {
           throw new Error('Failed to fetch users data');
         }
-        
         if (!productsRes.ok) {
           throw new Error('Failed to fetch products data');
         }
-
         const usersData = await usersRes.json();
         const productsData = await productsRes.json();
-
-        // Ensure users is always an array
         const usersArray = Array.isArray(usersData) ? usersData : [];
-
-        // Calculate dashboard stats
         const totalUsers = usersArray.length;
         const allOrders = usersArray.flatMap((user) => user.orders || []);
         const totalOrders = allOrders.length;
-        const totalSales = allOrders.reduce((sum, order) => sum + (order.totalAmount || 0), 0);
-        const totalRevenue = totalSales * 0.10; // Assuming 10% revenue
+        const totalSales = allOrders.reduce((sum, order) => sum + (order.price * (order.quantity || 1)), 0);
+        const totalRevenue = totalSales * 0.10;
         const totalProducts = Array.isArray(productsData) ? productsData.length : 0;
-
-        // Update state
         setDashboardData({
           totalUsers,
           totalOrders,
@@ -121,7 +109,7 @@ const Dashboard = () => {
               <tbody>
                 {dashboardData.users.map((user) => {
                   if(user.role === 'admin'){
-                    return
+                    return;
                   }
                   const userTotalAmount = (user.orders || []).reduce(
                     (sum, order) => sum + (order.price || 0),
@@ -158,17 +146,17 @@ const Dashboard = () => {
                 </tr>
               </thead>
               <tbody>
-                {dashboardData.users
-                  .flatMap((user) => (user.orders || []).map(order => ({...order, username: user.username})))
-                  .map((order, index) => (
+              {dashboardData.users
+                .flatMap((user) => (user.orders || []).map(order => ({ ...order, username: user.name }))) 
+                .map((order, index) => (
                     <tr key={order.orderId || `order-${index}`} className="border-t border-orange-200">
-                      <td className="p-2 text-gray-700">{order.orderId || 'N/A'}</td>
+                      <td className="p-2 text-gray-700">{order.id || 'N/A'}</td>
                       <td className="p-2 text-gray-700">{order.username || 'N/A'}</td>
                       <td className="p-2 text-gray-700">
                         {order.date ? new Date(order.date).toLocaleDateString() : 'N/A'}
                       </td>
                       <td className="p-2 text-orange-600">
-                        ${(order.totalAmount || 0).toFixed(2)}
+                        ${(order.price * order.quantity || 0).toFixed(2)}
                       </td>
                       <td className="p-2 text-gray-700">{order.status || 'N/A'}</td>
                     </tr>

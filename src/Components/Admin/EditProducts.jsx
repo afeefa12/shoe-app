@@ -9,8 +9,8 @@ const [product, setProduct] = useState({
     name: '',
     price: '',
     description: '',
-    category: '',
-    imageUrl: '', 
+    categories: '',
+    images: '', 
 });
 const [loading, setLoading] = useState(true);
 const [error, setError] = useState(null);
@@ -138,14 +138,14 @@ return (
         </div>
 
         <div>
-            <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="categories" className="block text-sm font-medium text-gray-700 mb-1">
             Category
             </label>
             <input
             type="text"
-            id="category"
-            name="category"
-            value={product.category}
+            id="categories"
+            name="categories"
+            value={product.categories}
             onChange={handleChange}
             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
             placeholder="Enter category"
@@ -154,25 +154,25 @@ return (
         </div>
 
         <div>
-            <label htmlFor="imageUrl" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="images" className="block text-sm font-medium text-gray-700 mb-1">
             Image URL
             </label>
             <input
             type="url"
-            id="imageUrl"
-            name="imageUrl"
-            value={product.imageUrl}
+            id="images"
+            name="images"
+            value={product.images}
             onChange={handleChange}
             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
             placeholder="Enter image URL (e.g., https://example.com/image.jpg)"
             />
-            {product.imageUrl && (
+            {product.images && (
             <div className="mt-2">
                 <img
-                src={product.imageUrl}
+                src={product.images}
                 alt="Product preview"
                 className="max-w-xs h-auto rounded-lg shadow-md"
-                  onError={(e) => (e.target.style.display = 'none')} // Hide broken images
+                  onError={(e) => (e.target.style.display = 'none')}
                 />
             </div>
             )}

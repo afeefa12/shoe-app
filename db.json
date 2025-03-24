@@ -12,7 +12,16 @@
       "name": "evan",
       "email": "Evan@gmail.com",
       "password": "1234",
-      "cart": [],
+      "cart": [
+        {
+          "id": "13",
+          "name": "Shiny black leather shoe",
+          "price": 1599,
+          "quantity": 1,
+          "categories": "women",
+          "images": "https://m.media-amazon.com/images/I/410Z9J-mP6L._AC_UF480,480_SR480,480_.jpg"
+        }
+      ],
       "orders": [
         {
           "id": "13",
@@ -112,7 +121,7 @@
           "status": "Processing"
         }
       ],
-      "isBlocked": true
+      "isBlocked": false
     },
     {
       "id": "bdb9",
@@ -195,7 +204,29 @@
       "id": "d791",
       "name": "hrithik",
       "email": "hrithik@gmail.com",
-      "password": "1234"
+      "password": "1234",
+      "isBlocked": true,
+      "cart": [],
+      "orders": [
+        {
+          "id": "ORD-1742791876054-476",
+          "name": "Shiny black leather shoe",
+          "price": 1599,
+          "quantity": 2,
+          "categories": "women",
+          "images": "https://m.media-amazon.com/images/I/410Z9J-mP6L._AC_UF480,480_SR480,480_.jpg",
+          "userId": {
+            "id": "d791",
+            "name": "hrithik",
+            "email": "hrithik@gmail.com",
+            "password": "1234",
+            "isBlocked": true
+          },
+          "date": "2025-03-24T04:51:16.054Z",
+          "status": "Pending",
+          "paymentMethod": "Cash on Delivery"
+        }
+      ]
     },
     {
       "id": "c5ea",
@@ -207,38 +238,133 @@
       "id": "566c",
       "name": "kunooza",
       "email": "kunooza2@gmail.com",
-      "password": "1234"
+      "password": "1234",
+      "isBlocked": true
     },
     {
       "id": "35cc",
       "name": "faizy",
       "email": "faizy@gmail.com",
-      "password": "1234"
+      "password": "1234",
+      "isBlocked": true
     },
     {
       "id": "94d1",
       "name": "danish",
       "email": "danish@mail.com",
       "password": "1234",
-      "cart": [
+      "cart": [],
+      "order": [],
+      "orders": [
         {
-          "id": "12",
+          "id": "ORD-1742662308591-624",
           "name": "Shiny sports shoe",
           "price": 3499,
           "quantity": 1,
           "categories": "women",
-          "images": "https://m.media-amazon.com/images/I/61BqoKOXN-L._AC_UL480_FMwebp_QL65_.jpg"
+          "images": "https://m.media-amazon.com/images/I/61BqoKOXN-L._AC_UL480_FMwebp_QL65_.jpg",
+          "userId": {
+            "id": "94d1",
+            "name": "danish",
+            "email": "danish@mail.com",
+            "password": "1234",
+            "cart": [
+              {
+                "id": "12",
+                "name": "Shiny sports shoe",
+                "price": 3499,
+                "quantity": 1,
+                "categories": "women",
+                "images": "https://m.media-amazon.com/images/I/61BqoKOXN-L._AC_UL480_FMwebp_QL65_.jpg"
+              },
+              {
+                "id": "15",
+                "name": "Elegant Shiny Fashionable heel",
+                "price": 3999,
+                "quantity": 1,
+                "categories": "women",
+                "images": "https://websitedemos.net/recycled-shoe-store-04/wp-content/uploads/sites/983/2021/11/recycled-shoe-product-image-007.jpg"
+              }
+            ],
+            "order": []
+          },
+          "date": "2025-03-22T16:51:48.592Z",
+          "status": "Pending",
+          "paymentMethod": "Cash on Delivery"
         },
         {
-          "id": "15",
+          "id": "ORD-1742662308594-189",
           "name": "Elegant Shiny Fashionable heel",
           "price": 3999,
           "quantity": 1,
           "categories": "women",
-          "images": "https://websitedemos.net/recycled-shoe-store-04/wp-content/uploads/sites/983/2021/11/recycled-shoe-product-image-007.jpg"
+          "images": "https://websitedemos.net/recycled-shoe-store-04/wp-content/uploads/sites/983/2021/11/recycled-shoe-product-image-007.jpg",
+          "userId": {
+            "id": "94d1",
+            "name": "danish",
+            "email": "danish@mail.com",
+            "password": "1234",
+            "cart": [
+              {
+                "id": "12",
+                "name": "Shiny sports shoe",
+                "price": 3499,
+                "quantity": 1,
+                "categories": "women",
+                "images": "https://m.media-amazon.com/images/I/61BqoKOXN-L._AC_UL480_FMwebp_QL65_.jpg"
+              },
+              {
+                "id": "15",
+                "name": "Elegant Shiny Fashionable heel",
+                "price": 3999,
+                "quantity": 1,
+                "categories": "women",
+                "images": "https://websitedemos.net/recycled-shoe-store-04/wp-content/uploads/sites/983/2021/11/recycled-shoe-product-image-007.jpg"
+              }
+            ],
+            "order": []
+          },
+          "date": "2025-03-22T16:51:48.594Z",
+          "status": "Pending",
+          "paymentMethod": "Cash on Delivery"
+        },
+        {
+          "id": "ORD-1742662308594-763",
+          "name": "Shiny black leather shoe",
+          "price": 1599,
+          "quantity": 1,
+          "categories": "women",
+          "images": "https://m.media-amazon.com/images/I/410Z9J-mP6L._AC_UF480,480_SR480,480_.jpg",
+          "userId": {
+            "id": "94d1",
+            "name": "danish",
+            "email": "danish@mail.com",
+            "password": "1234",
+            "cart": [
+              {
+                "id": "12",
+                "name": "Shiny sports shoe",
+                "price": 3499,
+                "quantity": 1,
+                "categories": "women",
+                "images": "https://m.media-amazon.com/images/I/61BqoKOXN-L._AC_UL480_FMwebp_QL65_.jpg"
+              },
+              {
+                "id": "15",
+                "name": "Elegant Shiny Fashionable heel",
+                "price": 3999,
+                "quantity": 1,
+                "categories": "women",
+                "images": "https://websitedemos.net/recycled-shoe-store-04/wp-content/uploads/sites/983/2021/11/recycled-shoe-product-image-007.jpg"
+              }
+            ],
+            "order": []
+          },
+          "date": "2025-03-22T16:51:48.594Z",
+          "status": "Pending",
+          "paymentMethod": "Cash on Delivery"
         }
-      ],
-      "order": []
+      ]
     },
     {
       "id": "968a",
@@ -246,7 +372,8 @@
       "email": "faizal2@gmail.com",
       "password": "1234",
       "cart": [],
-      "orders": []
+      "orders": [],
+      "isBlocked": true
     },
     {
       "id": "c348",
@@ -262,7 +389,8 @@
       "email": "afeefakm1@gmail.com",
       "password": "1234",
       "cart": [],
-      "orders": []
+      "orders": [],
+      "isBlocked": false
     },
     {
       "id": "2f09",
@@ -309,7 +437,8 @@
           "status": "Processing",
           "paymentMethod": "Credit Card"
         }
-      ]
+      ],
+      "isBlocked": true
     },
     {
       "id": "b07f",
@@ -412,6 +541,15 @@
           "quantity": 1,
           "categories": "women",
           "images": "https://m.media-amazon.com/images/I/410Z9J-mP6L._AC_UF480,480_SR480,480_.jpg"
+        },
+        {
+          "productId": "13",
+          "id": "13",
+          "name": "Shiny black leather shoe",
+          "price": 1599,
+          "image": "https://m.media-amazon.com/images/I/410Z9J-mP6L._AC_UF480,480_SR480,480_.jpg",
+          "size": "",
+          "quantity": 1
         }
       ],
       "orders": [
@@ -644,10 +782,11 @@
             ]
           },
           "date": "2025-03-17T09:01:33.914Z",
-          "status": "Pending",
+          "status": "Completed",
           "paymentMethod": "Cash on Delivery"
         }
-      ]
+      ],
+      "isBlocked": false
     },
     {
       "id": "8b39",
@@ -655,7 +794,8 @@
       "email": "anish3@gmail.com",
       "password": "1234",
       "cart": [],
-      "orders": []
+      "orders": [],
+      "isBlocked": true
     },
     {
       "id": "5bf4",
@@ -697,7 +837,7 @@
             "orders": []
           },
           "date": "2025-03-20T06:00:42.487Z",
-          "status": "Pending",
+          "status": "Shipped",
           "paymentMethod": "Cash on Delivery"
         },
         {
@@ -716,10 +856,41 @@
             "orders": []
           },
           "date": "2025-03-20T06:00:42.487Z",
-          "status": "Pending",
+          "status": "Shipped",
           "paymentMethod": "Cash on Delivery"
         }
       ]
+    },
+    {
+      "id": "e4ff",
+      "name": "adnan",
+      "email": "adnan@gmail.com",
+      "password": "1234",
+      "role": "users",
+      "cart": [],
+      "orders": [
+        {
+          "id": "ORD-1742625277910-202",
+          "name": "Shiny black leather shoe",
+          "price": 1599,
+          "quantity": 1,
+          "categories": "women",
+          "images": "https://m.media-amazon.com/images/I/410Z9J-mP6L._AC_UF480,480_SR480,480_.jpg",
+          "userId": {
+            "id": "e4ff",
+            "name": "adnan",
+            "email": "adnan@gmail.com",
+            "password": "1234",
+            "role": "users",
+            "cart": [],
+            "orders": []
+          },
+          "date": "2025-03-22T06:34:37.910Z",
+          "status": "Pending",
+          "paymentMethod": "Cash on Delivery"
+        }
+      ],
+      "isBlocked": true
     }
   ],
   "Products": [
@@ -729,7 +900,9 @@
       "price": 3499,
       "quantity": 33,
       "categories": "women",
-      "images": "https://m.media-amazon.com/images/I/61BqoKOXN-L._AC_UL480_FMwebp_QL65_.jpg"
+      "images": "https://m.media-amazon.com/images/I/61BqoKOXN-L._AC_UL480_FMwebp_QL65_.jpg",
+      "category": "men",
+      "image": "https://cdn.pixabay.com/photo/2015/05/20/15/45/sneaker-775699_1280.jpg"
     },
     {
       "id": "13",
@@ -844,12 +1017,26 @@
       "images": "//lp2.hm.com/hmgoepprod?set=format%5Bwebp%5D%2Cquality%5B79%5D%2Csource%5B%2F26%2Fcc%2F26ccd57b07bb57632ebb83eb93bf834bb3fa7f9a.jpg%5D%2Corigin%5Bdam%5D%2Ccategory%5Bladies_premium_selection_shoes%5D%2Ctype%5BDESCRIPTIVESTILLLIFE%5D%2Cres%5Bm%5D%2Chmver%5B2%5D&call=url%5Bfile%3A%2Fproduct%2Fmain%5D"
     },
     {
-      "id": "8926",
+      "id": "0d49",
       "name": "sneakers",
-      "price": "120",
-      "category": "men",
-      "images": "",
+      "price": "1200",
+      "categories": "men",
+      "images": "https://www.istockphoto.com/photo/hiker-feet-hiking-on-stone-trail-gm516313981-48222146?utm_source=pixabay&utm_medium=affiliate&utm_campaign=sponsored_image&utm_content=srp_topbanner_media&utm_term=shoes",
       "image": "https://th.bing.com/th/id/OIP.ISy5ckVKrGUtUmg7Wr4jAAHaHU?rs=1&pid=ImgDetMain"
+    },
+    {
+      "id": "ba9c",
+      "name": "hii",
+      "price": "900",
+      "categories": "men",
+      "images": "https://www.istockphoto.com/photo/hiker-feet-hiking-on-stone-trail-gm516313981-48222146?utm_source=pixabay&utm_medium=affiliate&utm_campaign=sponsored_image&utm_content=srp_topbanner_media&utm_term=shoes"
+    },
+    {
+      "id": "bf2a",
+      "name": "nike",
+      "price": "789",
+      "categories": "men",
+      "images": "https://m.media-amazon.com/images/I/714OlGkvgbL._AC_UL480_FMwebp_QL65_.jpg"
     }
   ],
   "orders": [

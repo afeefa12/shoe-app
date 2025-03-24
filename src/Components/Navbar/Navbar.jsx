@@ -100,7 +100,7 @@ function Navbar() {
     setIsOpen(!isOpen);
   };
 
-  const displayName = user?.name ? (user.name.split(' ')[0]) : 'User';
+  const displayName = user?.name ? (user.name.split(' ')[0]) : 'admin';
 
   return (
     <header className="bg-amber-500 border-b border-gray-200 ">

@@ -5,8 +5,6 @@ const AdminLogin = ({ onLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-
-
   const handleSubmit = (e) => {
     e.preventDefault();
   const adminCredentials = {
@@ -16,10 +14,9 @@ const AdminLogin = ({ onLogin }) => {
 
   if (email === adminCredentials.email && password === adminCredentials.password) {
     const userData = { email, role: "admin" };
-    onLogin(userData); // Pass user data to parent
-    navigate("/Dashboard"); // Navigate to the admin panel
-  } else {
-    navigate('/')
+    onLogin(userData);
+    navigate("/Dashboard");
+    // navigate('/');
   }
 };
 

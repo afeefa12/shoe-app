@@ -4,7 +4,7 @@ const AdminOrders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [isUpdating, setIsUpdating] = useState(null); // Track which order is being updated
+  const [isUpdating, setIsUpdating] = useState(null);
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -26,12 +26,13 @@ const AdminOrders = () => {
           .filter(user => user.orders && user.orders.length > 0)
           .flatMap(user => user.orders.map(order => ({
             ...order,
-            customerName: user.username,
+            // customerName: user.username,
             customerEmail: user.email,
-            orderId: order.orderId || `ORD-${user.id}-${order.date}`, // Use user.id instead of userId
-            userId: user.id, // Ensure userId is included
+            orderId: order.id ,
+            userId: user.id,
+            totalAmount: order.totalAmount || order.amount || 0, 
           })))
-          .sort((a, b) => new Date(b.date) - new Date(a.date)); // Sort by date descending
+          .sort((a, b) => new Date(b.date) - new Date(a.date));
 
         setOrders(allOrders);
       } catch (err) {
@@ -87,17 +88,17 @@ const AdminOrders = () => {
 
   const LoadingSpinner = () => (
     <div className="flex justify-center items-center h-screen">
-      <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-orange-500"></div>
+      <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-yellow-500"></div>
     </div>
   );
 
   const ErrorMessage = ({ message }) => (
     <div className="flex justify-center items-center h-screen">
-      <div className="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4 rounded" role="alert">
+      <div className="bg-orange-100 border-l-4 border-yellow-500 text-yellow-700 p-4 rounded" role="alert">
         <p>Error: {message}</p>
         <button
           onClick={() => window.location.reload()}
-          className="mt-2 text-sm text-orange-800 underline hover:text-orange-900"
+          className="mt-2 text-sm text-yellow-800 underline hover:text-yellow-900"
         >
           Retry
         </button>
@@ -110,10 +111,10 @@ const AdminOrders = () => {
 
   return (
     <div className="container ml-72 max-w-[80vw] px-4 py-8 bg-orange-50 min-h-screen">
-      <h1 className="text-4xl font-extrabold text-orange-800 mb-6">Order Management</h1>
+      <h1 className="text-4xl font-extrabold text-yellow-800 mb-6">Order Management</h1>
       
       {error && (
-        <div className="mb-4 bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4 rounded">
+        <div className="mb-4 bg-orange-100 border-l-4 border-yellow-500 text-yellow-700 p-4 rounded">
           {error}
         </div>
       )}
@@ -122,38 +123,31 @@ const AdminOrders = () => {
         <div className="p-6">
           <div className="mb-6 flex justify-between items-center">
             <p className="text-orange-600 text-lg font-medium">Total Orders: {orders.length}</p>
-            <button
-              onClick={() => window.location.reload()}
-              className="text-orange-600 hover:text-orange-800 text-sm font-medium"
-            >
-              Refresh
-            </button>
+   
           </div>
 
           <div className="overflow-x-auto">
             <table className="w-full text-left">
               <thead className="bg-orange-100">
                 <tr>
-                  <th className="px-6 py-3 text-sm font-semibold text-orange-700">Order ID</th>
-                  <th className="px-6 py-3 text-sm font-semibold text-orange-700">Customer</th>
-                  <th className="px-6 py-3 text-sm font-semibold text-orange-700">Email</th>
-                  <th className="px-6 py-3 text-sm font-semibold text-orange-700">Date</th>
-                  <th className="px-6 py-3 text-sm font-semibold text-orange-700">Total</th>
-                  <th className="px-6 py-3 text-sm font-semibold text-orange-700">Status</th>
-                  <th className="px-6 py-3 text-sm font-semibold text-orange-700">Actions</th>
+                  <th className="px-6 py-3 text-sm font-semibold text-yellow-700">Order ID</th>
+                  <th className="px-6 py-3 text-sm font-semibold text-yellow-700">Email</th>
+                  <th className="px-6 py-3 text-sm font-semibold text-yellow-700">Date</th>
+                  <th className="px-6 py-3 text-sm font-semibold text-yellow-700">Total</th>
+                  <th className="px-6 py-3 text-sm font-semibold text-yellow-700">Status</th>
+                  <th className="px-6 py-3 text-sm font-semibold text-yellow-700">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-orange-200">
                 {orders.map((order) => (
-                  <tr key={order.orderId} className="hover:bg-orange-50">
+                  <tr key={order.orderId} className="hover:bg-yellow-50">
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{order.orderId}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{order.customerName}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{order.customerEmail}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                       {new Date(order.date).toLocaleDateString()}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      ${order.totalAmount?.toFixed(2) || 'N/A'}
+                      ${order.price?.toFixed(2) || 'N/A'}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${

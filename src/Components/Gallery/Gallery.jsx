@@ -12,21 +12,21 @@ const Pictures = () => {
                             <img 
                                 alt="products" 
                                 className="w-full object-cover h-full object-center block" 
-                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeNYttJpYSuvN5dZp-mffC-dnc-gqNdOBQrw&s" 
+                                src="https://cdn.pixabay.com/photo/2021/06/03/08/12/sneep-crew-6306342_1280.jpg" 
                             />
                         </div>
                         <div className="md:p-2 p-1 w-1/2">
                             <img 
                                 alt="products" 
                                 className="w-full object-cover h-full object-center block" 
-                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyWDetKnzpq6I-uAwpax-uKSWIJkvxYfB7mA&s" 
+                                src="https://cdn.pixabay.com/photo/2020/04/27/11/54/nike-5099507_1280.jpg" 
                             />
                         </div>
                         <div className="md:p-2 p-1 w-full">
                             <img 
                                 alt="products" 
                                 className="w-full h-full object-cover object-center block" 
-                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgboFif18Uwb00zAwyr8tF-CK5j4iphUICZw&s" 
+                                src="https://cdn.pixabay.com/photo/2016/03/16/14/08/shoes-1260814_1280.jpg" 
                             />
                         </div>
                     </div>
@@ -36,21 +36,21 @@ const Pictures = () => {
                             <img 
                                 alt="products" 
                                 className="w-full h-full object-cover object-center block" 
-                                src="https://m.media-amazon.com/images/S/al-eu-726f4d26-7fdb/1d50ef3d-47cd-4ddd-824c-cda532f9a015._CR0,0,1200,628_SX810_QL70_.jpg" 
+                                src="https://cdn.pixabay.com/photo/2022/07/22/13/26/shoes-7338170_1280.jpg" 
                             />
                         </div>
                         <div className="md:p-2 p-1 w-1/2">
                             <img 
                                 alt="products" 
                                 className="w-full object-cover h-full object-center block" 
-                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdfX7xUS4fkFGAfZXEvSQmMfMlLJahYUBtFw&s" 
+                                src="https://cdn.pixabay.com/photo/2019/08/01/20/09/sports-shoe-4378233_1280.jpg" 
                             />
                         </div>
                         <div className="md:p-2 p-1 w-1/2">
                             <img 
                                 alt="products" 
                                 className="w-full object-cover h-full object-center block" 
-                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaITAaBDZu7af_R12GyU38ubB4_K75ODdypw&s"
+                                src="https://cdn.pixabay.com/photo/2016/11/15/01/47/shoes-1825119_1280.jpg"
                             />
                         </div>
                     </div>

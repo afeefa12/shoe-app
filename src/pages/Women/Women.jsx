@@ -140,8 +140,6 @@ const Women = () => {
             try {
                 setLoading(true);
                 const response = await axios.get("http://localhost:4000/Products");
-                
-                // The issue is here - "women" should be lowercase to match how it's stored in the database
                 const WomenProducts = response.data.filter(Product => 
                     Product.categories === "women" 
                 );
@@ -214,7 +212,7 @@ const Women = () => {
                                     alt={product.name}
                                     className="w-full h-60 object-contain rounded-lg"
                                     onError={(e) => {
-                                        e.target.src = "/placeholder-image.jpg"; // Fallback image
+                                        e.target.src = "/placeholder-image.jpg"; 
                                         e.target.onerror = null;
                                     }}
                                 />
