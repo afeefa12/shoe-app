@@ -89,6 +89,7 @@ function Navbar() {
     localStorage.removeItem('user');
     localStorage.removeItem('userId');
     localStorage.removeItem('cart'); 
+    
     setIsLoggedIn(false);
     setUser(null);
     setCartCount(0);
@@ -100,7 +101,7 @@ function Navbar() {
     setIsOpen(!isOpen);
   };
 
-  const displayName = user?.name ? (user.name.split(' ')[0]) : 'admin';
+  const displayName = user?.name ? (user.name.split(' ')[0]) : 'Login';
 
   return (
     <header className="bg-amber-500 border-b border-gray-200 ">

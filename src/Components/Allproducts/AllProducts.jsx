@@ -27,7 +27,7 @@ const ProductList = () => {
       return;
     }
 
-    const userId = JSON.parse(storedUser).id; // Ensure correct ID parsing
+    const userId = JSON.parse(storedUser).id; 
 
     try {
       console.log("Fetching user data for ID:", userId);

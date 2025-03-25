@@ -28,8 +28,9 @@ const AdminOrders = () => {
             ...order,
             customerEmail: user.email,
             orderId: order.id ,
+            
             userId: user.id,
-            totalAmount: order.totalAmount || order.amount || 0, 
+            totalAmount: order.price || order.amount || 0, 
           })))
           .sort((a, b) => new Date(b.date) - new Date(a.date));
 

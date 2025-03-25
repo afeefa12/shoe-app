@@ -6,7 +6,6 @@ import "./App.css";
 import Login from "./pages/Login/Login";
 import Layout from "./Components/Layout/Layout";
 import Signup from "./pages/SignUp/SignUp";
-import ProductList from "./Components/Allproducts/Allproducts";
 import Payment from "./Components/Payment/Payment";
 import ProductDetails from "./Components/Allproducts/ProductDetails";
 import Women from "./pages/Women/Women";
@@ -18,6 +17,8 @@ import Dashboard from "./Components/Admin/Dashboard";
 import AdminProducts from "./Components/Admin/AdminProductList";
 import AdminOrders from "./Components/Admin/AdminOrderList";
 import Users from "./Components/Admin/Users";
+import ProductList from "./Components/Allproducts/AllProducts";
+import AdminLayout from "./Components/Admin/Adminlayout";
 
 // Protected Route component
 const ProtectedRoute = ({ user, children }) => {
@@ -26,6 +27,10 @@ const ProtectedRoute = ({ user, children }) => {
   }
   return children;
 };
+
+// {/* <ProtectedRoute>
+//   <AdminLayout/>
+//   <ProtectedRoute/> */}
 
 function App() {
   const [user, setUser] = useState(() => {
@@ -52,7 +57,7 @@ function App() {
         {/* Public routes */}
         <Route path="/" element={<Layout><Home /></Layout>} />
         <Route path="/cart" element={<Layout><Cart /></Layout>} />
-        <Route path="/products" element={<Layout><ProductList /></Layout>} />
+        <Route path="/products" element={<Layout><ProductList/></Layout>} />
         <Route path="/Login" element={<Layout><Login /></Layout>} />
         <Route path="/signup" element={<Layout><Signup /></Layout>} />
         <Route path="/Payment" element={<Layout><Payment /></Layout>} />
